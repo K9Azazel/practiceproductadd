@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Management</title>
+</head>
+<body>
+<h2>Input product information </h2> <br>
+    <label>Product Name</label>
+    <input type="text" id="product_name" placeholder="Enter product name"><br>
+<button type="button" onclick="addProduct()">Add Product</button><br>
+<div id="createTable"></div>
+</body>
+<script>
+let productList = [];
+    function addProduct(){
+        let newProduct = document.getElementById("product_name").value
+        productList.push(newProduct)
+        document.getElementById("product_name").value = ""
+        displayProduct()
+}
+    function displayProduct(){
+        let data = "<table>"
+        data += "<tr>"
+        data += "<th colspan='2' id='title'>Product Name</th>"
+        data += "<th>" + productList.length + " products</th>"
+        data += "</tr>"
+        for (let i = 0; i < productList.length; i++) {
+            data += "<tr>"
+            data += "<td>" + productList[i] + "</td>"
+            data += "<td><button onclick='edit("+ i +")'>Edit</button></td>"
+            data += "<td><button onclick='del("+ i +")'>Delete</button></td>"
+            data += "</tr>"
+        }
+        data += "</table>"
+        document.getElementById('createTable').innerHTML = data;
+    }
+    function edit(area)
+{
+    let newData = prompt('What do you want to change product name?')
+    productList[area] = newData;
+    displayProduct();
+}
+function del(area)
+{
+    productList.splice(area,1)
+    displayProduct()
+}
+</script>
+</html>
